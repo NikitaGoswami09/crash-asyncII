@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Slideshow</title>
+<style>
+    .slideshow-container {
+        position: relative;
+        max-width: 800px;
+        margin: auto;
+    }
+    .slide {
+        display: none;
+        width: 100%;
+    }
+    img {
+        width: 100%;
+        height: auto;
+    }
+    .prev, .next {
+        cursor: pointer;
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        width: auto;
+        padding: 16px;
+        color: white;
+        font-weight: bold;
+        font-size: 20px;
+        transition: 0.6s ease;
+        border-radius: 0 3px 3px 0;
+        background-color: rgba(0, 0, 0, 0.5);
+    }
+    .prev:hover, .next:hover {
+        background-color: rgba(0, 0, 0, 0.8);
+    }
+    .prev {
+        left: 0;
+    }
+    .next {
+        right: 0;
+        border-radius: 3px 0 0 3px;
+    }
+    .start-stop {
+        cursor: pointer;
+        background-color: #4CAF50;
+        border: none;
+        color: white;
+        padding: 10px 20px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+        margin: 10px;
+        border-radius: 5px;
+    }
+</style>
+</head>
+<body>
+
+<div class="slideshow-container">
+    <div class="slide">
+        <img src="1.jpg"
+         alt="Slide 1">
+    </div>
+    <div class="slide">
+        <img src="2.jpg" alt="Slide 2">
+    </div>
+    <div class ="slide">
+        <img src="3.jpg"alt ="Slide 3">
+
+    </div>
+    <div class ="slide">
+        <img src="4.jpg"alt ="Slide 4">
+
+        
+    </div>
+    <div class ="slide">
+        <img src="5.jpg"alt ="Slide 5">
+        
+    </div>
+    
+
+    <button class="prev" onclick="prevSlide()">&#10094; Previous</button>
+    <button class="next" onclick="nextSlide()">Next &#10095;</button>
+</div>
+
+<button class="start-stop" onclick="startStop()">Start / Stop</button>
+
+<script>
+    let slideIndex = 0;
+    let slides = document.getElementsByClassName("slide");
+    let timer;
+
+    function showSlide(n) {
+        if (n >= slides.length) {
+            slideIndex = 0;
+        } else if (n < 0) {
+            slideIndex = slides.length - 1;
+        }
+        for (let i = 0; i < slides.length; i++) {
+            slides[i].style.display = "none";
+        }
+        slides[slideIndex].style.display = "block";
+    }
+
+    function nextSlide() {
+        clearInterval(timer);
+        showSlide(slideIndex + 1);
+    }
+
+    function prevSlide() {
+        clearInterval(timer);
+        showSlide(slideIndex - 1);
+    }
+
+    function startStop() {
+        if (timer) {
+            clearInterval(timer);
+            timer = null;
+        } else {
+            timer = setInterval(nextSlide, 2000); // Change slide every 2 seconds
+        }
+    }
+
+    showSlide(slideIndex); // Display the first slide
+    startStop(); // Start the slideshow initially
+</script>
+
+</body>
+</html>
